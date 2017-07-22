@@ -1,16 +1,22 @@
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const extractCSS = new ExtractTextPlugin('[name].bundle.css');
 
 module.exports = {
 	context: __dirname,
 	entry: {
-		app: './src/App.jsx'
+		app: ['./src/App.jsx']
 	},
 	devtool: 'cheap-eval-source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js',
 		publicPath: '/public/'
+	},
+	devServer: {
+		publicPath: '/public/',
+		historyApiFallback: true
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.json']
@@ -31,6 +37,10 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				loader: 'babel-loader'
+			},
+			{
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
 			}
 		]
 	}
